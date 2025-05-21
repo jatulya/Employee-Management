@@ -1,21 +1,32 @@
-import express from 'express'
-import { employeeRouter } from './employee_router'
-import { loggerMiddleware, processTimeMiddleware } from "./loggerMiddleware";
+import express from "express";
+import employeeRouter from "./routes/employee.router";
+import loggerMiddleware from "./loggerMiddleware";
+import datasource from "./db/data-source";
 
-const server = express()
+const { Client } = require('pg');
+const server = express();
 
-server.use(express.json())
-server.use(loggerMiddleware)
-server.use(processTimeMiddleware)
+server.use(express.json());
+server.use(loggerMiddleware);
+server.use("/employee", employeeRouter);
 
-server.listen(3001, () => {
-    console.log("Server listening")
-})
+server.get("/", (req, res) => {
+  console.log(req.url);
+  res.status(200).send("Hello world typescript");
+});
 
-server.get('/', (req, res) => {
-    console.log(`Request Url : ${req.url} `)
-    res.status(200).send("Hello from server")
-})
+(async () => {
+  try{
+    await datasource.initialize()
+    console.log('connected')
+  }catch {
+    console.error("Failed to connect to db")
+    process.exit(1)
+  }
+  server.listen(3000, () => {
+  console.log("server listening to 3000");
+});
+})();
 
-server.use('/employees', employeeRouter)
+
 

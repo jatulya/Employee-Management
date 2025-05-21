@@ -58,3 +58,46 @@ Date: 20-05-2025
 
 12. Orm 
 
+
+
+15. Create folder db -> add data-source.ts
+    Create folder entities -> add employee.entitiy.ts
+    Create folder repositories -> add employee.repository.ts
+    Create folder services -> add employee.service.ts
+    Create folder controllers -> add employee.controller.ts
+    Create folder routes -> add employee.router.ts
+
+
+16. employee.repository.ts
+    the reason we are creating this file is because previously, we use orm directly in employeeRouter and do the rest of the functions there. GetRepository is called multiple times (in mine, I have done it once only, but in the production code, if we are following the prev code, we might have to call it multiple time), business logic and db access is on the same file, complex querying might complicate the business logic. 
+    Thus we are creating a custom repository to have custom orm and also separate db access and business logic.
+ 
+17. employee.service.ts
+    This is where we implement the business logic using the custom orms and repositories we created.
+
+18. employee.controller.ts
+    handles incoming request and Responses
+    thus all functions would have req and res as parameters
+    status code needs to be correctly send
+
+19. employee.router.ts
+    create the mapping between all router, controller, services and repositories
+    pass the express route instance to controller
+        
+    in employee.controller.ts
+        accept employeeRouter instance as well in the constructor and accept the routes, http methods and the corresponding function to be called in it. idky we did it here instead in the employeeRouter
+        NOTE: 
+            the function defined in the controller, after using the express router instance in the constructor, should either be defined as lambda function updateEmployee = async(req, resp) => {} or in the constructor, it should be written as router.put("/:id", this.updateEmployee).bind(this)
+
+basically employeeRouter.ts is divided into 4 layers of files with bottom to top represented as repositories --> service --> controller --> router
+
+20. Migrations
+    db/Migrations
+    in data-source, add this  migrations: ["dist/db/migrations/"] //typeorm needs the build version --> the ones in dist
+    run the command -> npx typeorm migration:create db/migrations/create-employee
+    here, the create-employee is the change we are bringing. So name it that
+    this command creates a file in the migrations folder with a timestamp 
+    the file contains definitions of two functions -> 
+        up (to make any changes to the db), 
+        down (to undo any changes done)
+    their parameter is QueryRunner (a raw sql query file)
