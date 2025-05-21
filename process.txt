@@ -1,0 +1,60 @@
+Date: 20-05-2025
+
+1. Created an empty github repository for employee management.
+2. Cloned it locally.
+3. Created an gitignore file (right now empty.) 
+4. npm init -y
+   For starting a node project -> this command creates a package.json file (-y ==> give yes to everything)
+5. npx tsc --init   ==> initializes typescript
+6. npm i express typescript
+7. npm i --save-dev @types/node @types/express
+8. Create a server.ts
+    import express
+    create express server
+    add script -> "build" : "npx tsc",
+    "startServer" : "npx tsc && node dist/server.js"
+    create get and post methods 
+    
+    NOTE: 
+    a. To pass variables in the url:  :id
+    b. To access vars passed in url:  req.params.varName
+    c. Suppose in employees/id I am expecting a number, but I gave it as employees/Sarah, then if employees/Sarah page exists, it would be redirected to that page. 
+    d. when u define a class in diff file, you dont have
+
+9. Create employee_router.ts to register endpoints.
+    import Router from express
+    create a employeeRouter
+    create a get request similar to the one in server.ts
+    export employeeRouter
+
+    in server.ts, 
+        comment out all other requests
+        import employeeRouter
+        register server with employeeRouter using server.use
+
+    basically, router is used to define set of elements that should be executed when the url, in this case localhost:3000/employee . Any further url can come after it and its logic is written in the router file. so change the get and post methods from /employee to the router file
+
+10. Creating middleware
+    create loggermiddleware.ts
+    import { Request, Response, NextFunction } from "express";
+    add status using resp.on("finish", () => {
+        
+    })
+    write implementation and call next function last 
+
+    in server.ts, add server.use(loggerMiddleware) before calling server.get
+
+11. Database connection
+    create a container in docker in postgres 
+    start the container
+    create a db training
+        npm install typeorm reflect-metadata typeorm-naming-strategies
+        npm install pg
+        npm install --save-dev @types/pg
+    in tscofig, add these -> 
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
+    import client from pg and start coding with client
+
+12. Orm 
+

@@ -1,0 +1,31 @@
+{
+  "name": "employee-management",
+  "version": "1.0.0",
+  "description": "Employee management app we are creating during the training session",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build" : "npx tsc",
+    "startServer" : "npx tsc && node dist/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jatulya/Employee-Management.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jatulya/Employee-Management/issues"
+  },
+  "homepage": "https://github.com/jatulya/Employee-Management#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.2",
+    "@types/node": "^22.15.19"
+  }
+}
