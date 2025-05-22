@@ -16,7 +16,9 @@ class EmployeeRepository {
     }
 
     async findOneById(id : number) : Promise<Employee> {
-        return this.repository.findOneBy({id})
+        return this.repository.findOne({where : {id}, relations : {
+            address : true
+        }})
     }
 
     //the reason we are using await here because prev we return promise with records, but here, we are returning nothing even though it's an async function
@@ -26,6 +28,10 @@ class EmployeeRepository {
 
     async delete (id:number){
         await this.repository.delete(id)
+    }
+
+    async remove(employee : Employee){
+        await this.repository.remove(employee)
     }
 }
 

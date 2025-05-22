@@ -1,14 +1,17 @@
 import EmployeeRepository from "../repositories/employee.repository";
 import Employee from "../entities/employee.entity";
+import Address from "../entities/address.entity";
 
 class EmployeeService {
     constructor(private employeeRepository : EmployeeRepository){}
 
-    async createEmployee(name:string, email:string) : Promise<Employee>{
-        const newEmployee = new Employee();
-        newEmployee.email = email;
-        newEmployee.name = name;
-        return this.employeeRepository.create(newEmployee)
+    async createEmployee(name:string, email:string, age:number, address :Address) : Promise<Employee>{
+            const newEmployee = new Employee();
+            newEmployee.email = email;
+            newEmployee.name = name;
+            newEmployee.age = age
+            newEmployee.address = address
+            return this.employeeRepository.create(newEmployee)
     }
     
     async getAllEmployees() : Promise<Employee[]>{
@@ -32,7 +35,8 @@ class EmployeeService {
     async deleteEmployee(id : number) {
         const employeeExist = await this.employeeRepository.findOneById(id)
         if (employeeExist){
-            await this.employeeRepository.delete(id)
+            //await this.employeeRepository.delete(id)
+            await this.employeeRepository.remove(employeeExist)
         }
     }
 }
