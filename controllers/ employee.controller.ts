@@ -1,22 +1,24 @@
 import HttpException from "../exceptions/httpException";
 import EmployeeService from "../services/employee.service";
 import {Request, Response,Router, NextFunction } from 'express'
-import { isEmail } from "../validators/emailValidator";
 import { plainToInstance } from "class-transformer";
 import { CreateEmployeeDto } from "../dto/createEmployeeDto";
 import { validate } from "class-validator";
+import { authorizationMiddleware } from "../middleware/authorization.middleware";
 
 export default class EmployeeController {
     constructor (private employeeService : EmployeeService, router : Router) {
-        router.post("/", this.createEmployee.bind(this))
+        router.post("/", authorizationMiddleware, this.createEmployee.bind(this))
         router.get("/", this.getAllEmployees.bind(this))
         router.get("/:id", this.getEmployeeById.bind(this))
-        router.put("/:id", this.updateEmployee)
-        router.delete("/:id", this.deleteEmployee.bind(this))
+        router.put("/:id",authorizationMiddleware, this.updateEmployee)
+        router.delete("/:id",authorizationMiddleware, this.deleteEmployee.bind(this))
     }
 
     async createEmployee(req : Request, resp : Response, next : NextFunction) {
         try{
+            //plainToInstance converts JS obj to an instance of the class CreateEmployeeDto
+            //it is easier for class-validation
             const createEmployeeDto = plainToInstance(CreateEmployeeDto, req.body)
             const errors = await validate(createEmployeeDto)
 
@@ -25,11 +27,14 @@ export default class EmployeeController {
                 throw new HttpException(412, JSON.stringify(errors))
             }
 
-            const email = req.body.email
-            const name = req.body.name
-            const age = req.body.age
-            const address = req.body.address
-            const newEmployee = await this.employeeService.createEmployee(email, name, age, address)
+            const newEmployee = await this.employeeService.createEmployee(
+                createEmployeeDto.name,
+                createEmployeeDto.email,
+                createEmployeeDto.age,
+                createEmployeeDto.address,
+                createEmployeeDto.role,
+                createEmployeeDto.password,
+            );
             resp.status(201).send(newEmployee)
         }catch(error){
             next(error)
@@ -37,6 +42,7 @@ export default class EmployeeController {
     }
 
     async getAllEmployees(req : Request, resp : Response){
+        console.log(req.user)
         const employees = await this.employeeService.getAllEmployees()
         resp.status(200).send(employees)
     }
@@ -55,11 +61,15 @@ export default class EmployeeController {
     }
 
     updateEmployee = async(req : Request, resp : Response) => {
-        const id = Number(req.params.id)
-        const email = req.body.email
-        const name = req.body.name
-        await this.employeeService.updateEmployee(id, name, email)
-        resp.status(200).send()
+        try{
+            const id = Number(req.params.id)
+            const email = req.body.email
+            const name = req.body.name
+            await this.employeeService.updateEmployee(id, name, email)
+            resp.status(200).send()
+        }catch(error){
+
+        }
     }
 
     async deleteEmployee(req : Request, resp : Response){

@@ -8,7 +8,7 @@ import EmployeeController from "../controllers/ employee.controller";
 const employeeRouter = express.Router()
 
 const employeeRepository = new EmployeeRepository(datasource.getRepository(Employee))
-const employeeService = new EmployeeService(employeeRepository)
+export const employeeService = new EmployeeService(employeeRepository)
 const empployeeController = new EmployeeController(employeeService, employeeRouter)
 
 export default employeeRouter

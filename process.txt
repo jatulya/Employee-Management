@@ -132,3 +132,58 @@ Error Handler
 import {NextFunction } from 'express"
 in the try block, throw error and in catch, use next(error)
 httpException is a class that is created to standardize the way all errors can be returned
+
+in the controller and services, after creating dto, we access values to be assigned to the database through the dto. the parameter types in the functions for address entity should be changed to CreateAddressDto 
+
+
+DAY 9 --> 22/05/2025
+
+1. We want to add password to the table. 
+   we add the attribute to employee.entitiy and generate a migration
+   run the migration
+   error comes -> password val is set as shouldn't be null. But the already existing records don't have password. 
+   we edit the migration to add password column, set some random (here, 'password' is password) and then set it to not be null
+
+2. Password is visible in plaintext in the db ==> Hashing required
+   npm i --save-dev @types/bcrypt
+   hash the password in services and pass hashed password to repository
+
+3. Create auth.controller.ts auth.service.ts auth.router.ts()
+    authService.ts
+        creating login functionality
+            import employeeService inside (to get the email details)
+            Hashing in encrypted, thus cannot be reversed. in login checking, we always check passwords are same after converting the password received into hash with the hashed password in the database.
+
+    auth.router.ts
+        we need everything like in employee.Router - employeeRepo, employeeService and all the auth layers. So we import required items from employee.router and add it here
+    
+    add getEmployeeByEmail in employee.services and repository
+    call this in auth.services and the corresponding in controller.
+    add authRouter in services.ts
+
+4. Jwt token --> store user session info --> no sensitive information should be present
+    npm i --save-dev @types/jsonwebtoken
+    
+    in utils, create jwt secret (value must be from env var) and validity
+    
+    create a payload dto
+    
+    create token when user logged in
+    sign it there itself
+    return the token to controller
+
+    when post done on /auth/login, we get accessToken. If copy-pasted to the site jwt.io, we can decrypt it and see id and email. This is because jwt tokens are encoded, thus reversible. 
+
+5. Authorization : giving access to the only those who are allowed
+   auth.middleware.ts
+    take token from Authorization header
+    verify the token
+    call next() finally so that after middleware is executed, the control passes to the next function (here, it is employeeRouter)
+
+   we give req.user = payload. So an error comes because express cannot accept req.user as payload type
+   thus we create types/express.d.ts
+
+   we have added role in the payload. It is of the type EmployeeRole where EmployeeRole is an enum. Add the decorators in dto
+
+6. Authorization middleware
+    if role is not hr, then they can't edit the employee table  ==> adding the middleware in front of the employess is wrong because employeeRouter handles every operation. Therefore, we add it to the routes (post, put, delete) mentioned in the employee controller 

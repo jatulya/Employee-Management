@@ -21,13 +21,17 @@ class EmployeeRepository {
         }})
     }
 
+    async findByEmail(email:string) : Promise<Employee> {
+        return this.repository.findOneBy({email})
+    }
+    
     //the reason we are using await here because prev we return promise with records, but here, we are returning nothing even though it's an async function
     async update(id: number, employee: Employee){
         await this.repository.save({id,...employee})
     }
 
     async delete (id:number){
-        await this.repository.delete(id)
+        await this.repository.softDelete(id)
     }
 
     async remove(employee : Employee){
