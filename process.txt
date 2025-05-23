@@ -187,3 +187,13 @@ DAY 9 --> 22/05/2025
 
 6. Authorization middleware
     if role is not hr, then they can't edit the employee table  ==> adding the middleware in front of the employess is wrong because employeeRouter handles every operation. Therefore, we add it to the routes (post, put, delete) mentioned in the employee controller 
+
+7. Testing
+   tool : Jest
+
+   npm install --save-dev jest typescript ts-jest jest-when @types/jest jest-mock-extended
+   add in package.json "jest": { "transform": { "^.+\\.(t)s$": "ts-jest" }, "collectCoverageFrom": [ "<rootDir>/**/*.ts", "!**/index.ts" ] }
+     "exclude": ["**/*test.ts"] in tsconfig.json
+     
+   Create test/services/employeeService.test.ts
+   create type-safe mockups for the dependencies of employeeService and an instance of employeeService using beforeEach 
