@@ -5,14 +5,17 @@ import { plainToInstance } from "class-transformer";
 import { CreateEmployeeDto } from "../dto/createEmployeeDto";
 import { validate } from "class-validator";
 import { authorizationMiddleware } from "../middleware/authorization.middleware";
+import { UpdateEmployeeDto } from "../dto/updateEmployeeDto";
+import { EmployeeRole } from "../entities/employee.entity";
+
 
 export default class EmployeeController {
     constructor (private employeeService : EmployeeService, router : Router) {
-        router.post("/", authorizationMiddleware, this.createEmployee.bind(this))
+        router.post("/", authorizationMiddleware([EmployeeRole.HR, EmployeeRole.DEVELOPER]), this.createEmployee.bind(this))
         router.get("/", this.getAllEmployees.bind(this))
         router.get("/:id", this.getEmployeeById.bind(this))
-        router.put("/:id",authorizationMiddleware, this.updateEmployee)
-        router.delete("/:id",authorizationMiddleware, this.deleteEmployee.bind(this))
+        router.put("/:id",authorizationMiddleware([EmployeeRole.HR]), this.updateEmployee)
+        router.delete("/:id",authorizationMiddleware([EmployeeRole.HR]), this.deleteEmployee.bind(this))
     }
 
     async createEmployee(req : Request, resp : Response, next : NextFunction) {
@@ -29,10 +32,15 @@ export default class EmployeeController {
 
             const newEmployee = await this.employeeService.createEmployee(
                 createEmployeeDto.name,
-                createEmployeeDto.email,
+                createEmployeeDto.email,                
+                createEmployeeDto.employeeId,
                 createEmployeeDto.age,
                 createEmployeeDto.address,
                 createEmployeeDto.role,
+                createEmployeeDto.department_id,
+                createEmployeeDto.experience,
+                createEmployeeDto.dateOfJoining,             
+                createEmployeeDto.status,
                 createEmployeeDto.password,
             );
             resp.status(201).send(newEmployee)
@@ -60,15 +68,32 @@ export default class EmployeeController {
         }
     }
 
-    updateEmployee = async(req : Request, resp : Response) => {
+    updateEmployee = async(req : Request, resp : Response, next : NextFunction) => {
         try{
             const id = Number(req.params.id)
-            const email = req.body.email
-            const name = req.body.name
-            await this.employeeService.updateEmployee(id, name, email)
-            resp.status(200).send()
-        }catch(error){
+            const updateEmployeeDto = plainToInstance(UpdateEmployeeDto, req.body)
+            const errors = await validate(updateEmployeeDto)
 
+            if (errors.length > 0) {
+                console.log(JSON.stringify(errors))
+                throw new HttpException(400, JSON.stringify(errors))
+            }
+
+            const newEmployee = await this.employeeService.updateEmployee(
+                id,
+                updateEmployeeDto.name,
+                updateEmployeeDto.email,                
+                updateEmployeeDto.age,
+                updateEmployeeDto.address,
+                updateEmployeeDto.role,
+                updateEmployeeDto.department_id,
+                updateEmployeeDto.experience,                                
+                updateEmployeeDto.status,
+                updateEmployeeDto.password,
+            );
+            resp.status(200).send(newEmployee)
+        }catch(error){
+            next(error)
         }
     }
 

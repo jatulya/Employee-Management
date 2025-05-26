@@ -1,6 +1,6 @@
 import { Repository } from "typeorm";
 import Employee from "../entities/employee.entity";
-import employeeRouter from "../employeeRouter";
+//import employeeRouter from "../employeeRouter";
 
 class EmployeeRepository {
     //private ==> repository is of the class
@@ -24,6 +24,10 @@ class EmployeeRepository {
     async findByEmail(email:string) : Promise<Employee> {
         return this.repository.findOneBy({email})
     }
+
+    // async empWithDept(department : number) : Promise<boolean>{
+    //     return this.repository.exists({where : {department : department}})
+    // }
     
     //the reason we are using await here because prev we return promise with records, but here, we are returning nothing even though it's an async function
     async update(id: number, employee: Employee){

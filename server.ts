@@ -5,8 +5,8 @@ import datasource from "./db/data-source";
 import { errorMiddleware } from "./middleware/error.middleware";
 import authRouter from "./routes/auth.router";
 import { authMiddleware } from "./middleware/auth.middleware";
-import { authorizationMiddleware } from "./middleware/authorization.middleware";
 import { LoggerService } from "./services/logger.services";
+import departmentRouter from "./routes/department.router";
 
 const { Client } = require('pg');
 const server = express();
@@ -16,6 +16,7 @@ server.use(express.json());
 server.use(loggerMiddleware);
 server.use("/employee", authMiddleware, employeeRouter); //always check if user is logged in
 server.use("/auth", authRouter) 
+server.use("/department", authMiddleware, departmentRouter)
 
 server.use(errorMiddleware) // we need this to happen after routers have been called
 //ie, the error from employeeRouter is then passed to this
