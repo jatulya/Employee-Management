@@ -17,7 +17,7 @@ describe('EmployeeService', () =>{
     describe('getEmployeeById', () => {
 
         it('Should return value when user with proper id exists', async () => {
-            const mockEmployee = {id : 123, name : "Employee name"} as Employee
+            const mockEmployee = {id : 123, name : "Employee1"} as Employee
             when(employeeRepository.findOneById).calledWith(1).mockReturnValue(mockEmployee)
 
             const result = await employeeService.getEmployeeById(1)

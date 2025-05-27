@@ -15,7 +15,7 @@ export default class DepartmentController {
             this.createDepartment.bind(this))
         router.get("/", this.getAllDepartments.bind(this))
         router.get("/:id", this.getDepartmentById.bind(this))
-        router.put("/:id",authorizationMiddleware([EmployeeRole.HR]), this.updateDepartment.bind(this))
+        router.get("/employees/:id", this.getEmployeesOfDept.bind(this))
         router.delete("/:id",authorizationMiddleware([EmployeeRole.HR]), this.deleteDepartment.bind(this))
     }
 
@@ -51,31 +51,21 @@ export default class DepartmentController {
         try{
             const id = Number(req.params.id)
             const employee = await this.departmentService.getDepartmentById(id)
+            resp.status(200).send(employee)
         }catch(error){
             next(error)
         }
     }
 
-    async updateDepartment(req: Request, resp : Response, next : NextFunction){
+    async getEmployeesOfDept(req: Request, resp : Response, next : NextFunction){
         try{
-            const updateDeptDto = plainToInstance(CreateDepartmentDto, req.body)
-            const errors =  await validate(updateDeptDto)
-
-            if (errors.length){
-                const stringifErrors = JSON.stringify(errors)
-
-                this.logger.error(`From createDept -> ${stringifErrors}`)
-                throw new HttpException(412, "Invalid department name.")
-            }
-
-            const updatedDepartment = await this.departmentService.createDepartment(updateDeptDto.name)
-
-            resp.status(201).send(updatedDepartment)
+            const id = Number(req.params.id)
+            const employee = await this.departmentService.getDepartmentById(id)
+            resp.status(200).send(employee)
         }catch(error){
             next(error)
         }
     }
-
     async deleteDepartment(req: Request, resp : Response, next : NextFunction){
         const id = Number(req.params.id)
         await this.departmentService.deleteDepartment(id)

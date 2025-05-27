@@ -14,11 +14,6 @@ export default class DepartmentService {
 
     async createDepartment(name : string) : Promise<Department>{
         try{
-            const employeeExist = await this.getDepartmentByName(name)
-            if (employeeExist){
-                this.logger.debug("Employee already exists.")
-                throw new HttpException(409, "Department Name already exists")
-            }
             const newDepartment = new Department()
             newDepartment.name = name
             return this.departmentRepository.create(newDepartment)
@@ -32,33 +27,33 @@ export default class DepartmentService {
     }
 
     async getDepartmentById(id : number) : Promise<Department> {
-        return this.departmentRepository.findOneById(id)
+         try {
+           const departmentExist = await this.departmentRepository.findOneById(id)
+           if (!departmentExist){
+                throw new HttpException(409, "Invalid ID: No Department with such ID exists")
+           }
+
+           return departmentExist
+        }catch(error){this.logger.debug("error in finding")}
     }
 
-    async getDepartmentByName(name : string) : Promise<Department> {
-        return this.departmentRepository.findByName(name)
-    }
+    async getDeptWithEmployees(id : number) : Promise<Department[]>{
+        try {
+           const departmentExist = await this.departmentRepository.findOneById(id)
+           if (!departmentExist){
+                throw new HttpException(409, "Invalid ID: No Department with such ID exists")
+           }
 
-    async getDeptWithEmployees(id : number) : Promise<Department>{
-        return this.departmentRepository.findDeptWithEmployees(id)
-    }
-
-    async updateDepartment(id:number, name: string) : Promise<Department>{     
-        try{
-            const departmentExist = await this.departmentRepository.findOneById(id)
-            if (!departmentExist) {}
-            const updatedDept = new Department()
-            updatedDept.name = name
-            await this.departmentRepository.update(id, updatedDept)
-            return departmentExist
-        }catch(error){}       
+           return this.departmentRepository.findDeptWithEmployees(id)
+        }catch(error){this.logger.debug("error in finding")}
+        
     }
 
     async deleteDepartment(id : number){
        try {
            const departmentExist = await this.departmentRepository.findOneById(id)
            if (!departmentExist){
-            throw new HttpException(409, "Invalid ID: No Department with such ID exists")
+                throw new HttpException(409, "Invalid ID: No Department with such ID exists")
            }
 
             return this.departmentRepository.delete(id)

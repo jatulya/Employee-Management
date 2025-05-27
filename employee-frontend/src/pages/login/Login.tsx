@@ -38,7 +38,7 @@ const Login = () => {
         <LoginLeft/>
 
         
-        <div clasnpsName="login-div">
+        <div className="login-div">
             <LogoImage />
             <div className="parent"><LoginInput id="username" classname="login-input" label="Username" placeholder="Username" type="text" value={username} onChange={(e)=> handleClick(e)} ref={usernameRef} endAdornment={<button className="clear" type="reset" disabled={username.length===0} onClick={()=>{setUsername("")}}>Clear</button>} /></div>
             

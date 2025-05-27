@@ -1,5 +1,6 @@
 import { Repository } from "typeorm";
 import Department from '../entities/department.entity'
+import Employee from "../entities/employee.entity";
 
 export default class DepartmentRepository {
     constructor(private repository : Repository<Department> ){}
@@ -16,19 +17,11 @@ export default class DepartmentRepository {
         return this.repository.findOne({where : {id}})
     }
 
-    async findDeptWithEmployees (id:number) {
-        return this.repository.findOne({where :{id}, relations : { employee : true}})
-    }
-
-    async findByName(name:string) : Promise<Department> {
-        return this.repository.findOneBy({name})
-    }
-
-    async update(id: number, department: Department){
-        await this.repository.save({id,...department})
+    async findDeptWithEmployees (id:number) : Promise<Department[]> {
+        return this.repository.find({where :{id}, relations : { employee : true}})
     }
 
     async delete (id:number){
-        await this.repository.softDelete(id)
+        await this.repository.delete(id)
     }
 }

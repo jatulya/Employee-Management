@@ -25,11 +25,6 @@ class EmployeeRepository {
         return this.repository.findOneBy({email})
     }
 
-    // async empWithDept(department : number) : Promise<boolean>{
-    //     return this.repository.exists({where : {department : department}})
-    // }
-    
-    //the reason we are using await here because prev we return promise with records, but here, we are returning nothing even though it's an async function
     async update(id: number, employee: Employee){
         await this.repository.save({id,...employee})
     }
