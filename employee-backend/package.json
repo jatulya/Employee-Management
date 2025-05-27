@@ -1,5 +1,5 @@
 {
-  "name": "employee-management",
+  "name": "employee-backend",
   "version": "1.0.0",
   "description": "Employee management app we are creating during the training session",
   "main": "index.js",

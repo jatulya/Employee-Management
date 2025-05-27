@@ -1,0 +1,16 @@
+.select {
+    width: 90%;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5%;
+}
+
+.boxes{
+    display: flex;
+    flex-direction: row;
+    padding: 15px;
+}
+
+.label{
+    margin-top: 20px;
+}
