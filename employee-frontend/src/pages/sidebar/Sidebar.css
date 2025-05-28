@@ -20,7 +20,7 @@ body{
     padding: 20px;
 } */
 
-.employee-list {
+.side-list {
     background-color: rgb(47, 110, 186);
     color: rgb(177, 206, 225); 
     margin-top: 15px;
@@ -35,6 +35,9 @@ body{
     gap: 10px;
 }
 
+ul{
+    list-style-type: none;
+}
 .employee-list img{
     padding: 5px;
     background-color: #d5e0f0;

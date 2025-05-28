@@ -4,17 +4,29 @@ import LogoImage from "../../components/image/LogoImage"
 import Input from "../../components/input/Input"
 import './Login.css'
 import LoginLeft from "./LoginLeft"
-import useMousePostion from "../../hooks/useMousePosition"
+//import useMousePostion from "../../hooks/useMousePosition"
 import LoginInput from "./LoginInput"
 import { Navigate, useNavigate } from "react-router-dom"
 
 const Login = () => {
+    const isLoggedIn = () => {
+        const token = localStorage.getItem("isLoggedIn");
+        console.log("token ", token)
+        return token === "true" 
+     }
+
+     if (isLoggedIn()){
+        return <Navigate to="/employee"/>
+     }
+
     const [username, setUsername] = useState<string>("")
     const [password, setPassword] = useState<string>("")
     const [usernameError, setUsernameError] = useState<string>("")
 
     const usernameRef = useRef<HTMLInputElement>(null)
-    const navigate = useNavigate()
+    const showPasswordRef = useRef<HTMLInputElement>(null)
+    const passwordRef = useRef<HTMLInputElement>(null)
+    const navigate = useNavigate() //when using in handlers, use useNavigate
     //const updatePostion = useMousePostion()
 
     useEffect(()=> {
@@ -50,7 +62,11 @@ const Login = () => {
     }, [username])
 
     function showPassword (){
-
+        if (showPasswordRef.current?.checked && passwordRef.current) {
+            passwordRef.current.type = "text"
+        }else{ if (passwordRef.current)
+            passwordRef.current.type = "password"
+        }
     }
 
     return(<div className="login-page">
@@ -106,6 +122,7 @@ const Login = () => {
                     type="password" 
                     value={password} 
                     onChange={(e:any)=> setPassword(e.target.value) } 
+                    ref={passwordRef}
                     endAdornment={
                         <button 
                             className="clear" 
@@ -116,7 +133,7 @@ const Login = () => {
                         </button>} 
                     />         
             <Buttons value='Login' type="submit" onChange={handleSubmit}/>
-            <Input id="showPassword" label="Show Password" type="checkbox" placeholder="" onChange={showPassword} />
+            <Input id="showPassword" label="Show Password" type="checkbox" placeholder="" onChange={showPassword} ref={showPasswordRef} />
         </div>
         
     </div>)

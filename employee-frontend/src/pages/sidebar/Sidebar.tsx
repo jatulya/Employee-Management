@@ -1,7 +1,15 @@
+import { useNavigate } from 'react-router-dom'
 import LogoImage from '../../components/image/LogoImage'
 import './Sidebar.css'
 
 const Sidebar = () => {
+    const navigate = useNavigate()
+
+    function handleClick () {
+
+        localStorage.setItem("isLoggedIn", "false")
+        navigate('/')
+    }
     return (<>
         <div className="left-bar">
         <header className="logo">
@@ -10,12 +18,18 @@ const Sidebar = () => {
             </a>
         </header>
         
-        <nav className="employee-list">
-            <ul className="nav-item">
-                <img alt="icon" src="../../assets/icon.svg" /> 
-                <b>Employee List </b>      
-            </ul>          
-        </nav>
+        <nav >
+            <ul>
+                <li className="side-list nav-item">
+                    <img alt="icon" src="../../assets/icon.svg" /> 
+                    <b>Employee List </b>
+                </li>   
+                <li className="side-list nav-item" onClick={handleClick}>
+                    <img alt="icon" src="../../assets/icon.svg" />  
+                    <b>Log out </b>           
+                </li>   
+            </ul>        
+        </nav>        
     </div>
     </>)
 }

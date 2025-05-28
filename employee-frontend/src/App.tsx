@@ -6,6 +6,7 @@ import UncontrolledLogin from "./pages/login/UncontrolledLogin"
 import { Layout } from "./components"
 import NotFound from "./components/notFound/NotFound"
 import Employee from "./pages/employee/Employee"
+import EmployeeDetails from "./pages/employeeDetails/EmployeeDetails"
 
 const App = () => {
 
@@ -28,7 +29,7 @@ const App = () => {
       children : [
         {index : true, element : <Employee />},
         {path: "create", element : <CreateEmployee />},
-        {path : ":id", element : <UncontrolledLogin />}
+        {path : ":id", element : <EmployeeDetails />}
       ]
     }
   ])
