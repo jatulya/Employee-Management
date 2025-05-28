@@ -6,21 +6,21 @@ export interface selectProps {
     classname? : string
 }
 
-
 export interface selectOptions {
     value : string,
     text : string
 }
 
 export interface LoginInputProps {
-    name? : string,
-    id? : string,
+    id : string,
     label : string,
-    type? : string,
+    type : string,
     value? : string,
-    placeholder? : string,
+    placeholder : string,
     classname? : string,
-    onChange? : () => void ,
+    onChange? : (event : React.ChangeEvent<HTMLInputElement>) => void ,
     endAdornment? : React.ReactNode | null, 
     ref? : React.RefObject<HTMLInputElement | null>,
 }
+
+//export interface ButtonProps extends 

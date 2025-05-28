@@ -1,4 +1,4 @@
-/* .buttons{
+.button{
     width: 80%;
     margin-top: 50px;
     font-size: medium;
@@ -9,9 +9,10 @@
     box-shadow: 2px 3px 2px 2px rgb(157, 204, 255);
     border: 2px solid rgb(0, 136, 255);
     justify-content: center;
-} */
+    cursor: pointer;
+}
 
-.button {
+/* .button {
   padding: 8px 16px;
   border-radius: 4px;
   font-size: 14px;
@@ -39,4 +40,4 @@
 .button--secondary:hover {
   background-color: #e2e6ea;
   border-color: #dae0e5;
-} 
+}  */

@@ -1,15 +1,30 @@
 import type { LoginInputProps } from '../../types/interfaces'
 import './Input.css'
 
-const Input = (props : LoginInputProps) => {
-    return (<div className={props.classname}>
-        <label className='label'>{props.label}</label>
-        <input 
-            className='input' 
-            type={props.type} placeholder={props.placeholder} onChange={props.onChange} 
-            ref={props.ref}
-            />
-    </div>)
+const Input = ({
+            id,
+            label,
+            type = "text",
+            classname,
+            value,
+            onChange,
+            placeholder,
+            endAdornment = null,
+            ref} : LoginInputProps) => {
+    return (
+        <div>
+            <label className={`label-${classname}`}>{label}</label>
+            <input 
+                id={id}
+                value={value}
+                className={`input input--${classname}`} 
+                type={type} 
+                placeholder={placeholder}           
+                onChange={onChange} 
+                ref={ref}
+                />
+            {endAdornment ? endAdornment : null}
+        </div>)
 }
 
 export default Input

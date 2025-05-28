@@ -1,4 +1,4 @@
-import { Input, Layout, Header, Select, Buttons } from '../../components'
+import { Input,  Header, Select, Buttons } from '../../components'
 import type { selectOptions } from '../../types/interfaces'
 import './CreateEmployee.css'
 
@@ -16,7 +16,6 @@ const CreateEmployee = () => {
         {value : "UX", text : "UX"}
     ]
     return (<>
-        <Layout> 
         <div className="main-div">
           <Header heading='Create Employee' /> 
           <form className="form-element">
@@ -44,7 +43,6 @@ const CreateEmployee = () => {
             </section>
         </form>
     </div>
-        </Layout>
    </> )
 }
 
