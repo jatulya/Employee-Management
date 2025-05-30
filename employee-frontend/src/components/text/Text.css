@@ -1,0 +1,17 @@
+.list{
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 5px 10px 5px 10px;
+    width: 90%;
+}
+
+.Active{
+    background-color: #d3f4de;
+}
+.Inactive{
+    background-color: #ffbfbf;
+}
+.Probation{
+    background-color: #f5ecb8;
+}

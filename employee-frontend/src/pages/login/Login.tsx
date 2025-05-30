@@ -61,12 +61,15 @@ const Login = () => {
             }
     }, [username])
 
-    function showPassword (){
-        if (showPasswordRef.current?.checked && passwordRef.current) {
-            passwordRef.current.type = "text"
-        }else{ if (passwordRef.current)
-            passwordRef.current.type = "password"
-        }
+    function isShowPassword(){
+        const token= localStorage.getItem("showPassword")
+        return token==="true"
+    }
+    function updateShowPassword(){
+    if (showPasswordRef.current?.checked)
+        localStorage.setItem("showPassword","true")
+    else
+        localStorage.setItem("showPassword","false")
     }
 
     return(<div className="login-page">
@@ -76,7 +79,7 @@ const Login = () => {
         <div className="login-div">
             <LogoImage />
             <div className="parent">
-                {/* <Input id="username" 
+                <Input id="username" 
                     classname="login" 
                     label="Username" 
                     placeholder="Username" 
@@ -92,8 +95,8 @@ const Login = () => {
                             onClick={()=>{setUsername("")}}>
                             Clear
                         </button>} 
-                    /> */}
-                <LoginInput 
+                    />
+                {/* <LoginInput 
                     id="username" 
                     classname="login-input" 
                     label="Username" 
@@ -110,7 +113,7 @@ const Login = () => {
                             onClick={()=>{setUsername("")}}>
                             Clear
                         </button>} 
-                    />
+                    /> */}
             </div>       
             <p id="error">{usernameError? usernameError : ""}</p>
 
@@ -119,7 +122,7 @@ const Login = () => {
                     classname="login-input" 
                     label="password" 
                     placeholder="Password" 
-                    type="password" 
+                    type={isShowPassword()? "text" : "password" }
                     value={password} 
                     onChange={(e:any)=> setPassword(e.target.value) } 
                     ref={passwordRef}
@@ -133,7 +136,7 @@ const Login = () => {
                         </button>} 
                     />         
             <Buttons value='Login' type="submit" onChange={handleSubmit}/>
-            <Input id="showPassword" label="Show Password" type="checkbox" placeholder="" onChange={showPassword} ref={showPasswordRef} />
+            <Input id="showPassword" label="Show Password" type="checkbox" placeholder="" onChange={updateShowPassword} ref={showPasswordRef} />
         </div>
         
     </div>)

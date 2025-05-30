@@ -21,6 +21,11 @@ export interface LoginInputProps {
     onChange? : (event : React.ChangeEvent<HTMLInputElement>) => void ,
     endAdornment? : React.ReactNode | null, 
     ref? : React.RefObject<HTMLInputElement | null>,
+    disabled? : boolean
 }
 
+export interface EmployeeDetailsType {
+    detailName : string,
+    value : string
+}
 //export interface ButtonProps extends 

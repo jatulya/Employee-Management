@@ -10,7 +10,7 @@ const Input = ({
             onChange,
             placeholder,
             endAdornment = null,
-            ref} : LoginInputProps) => {
+            ref, disabled} : LoginInputProps) => {
     return (
         <div>
             <label className={`label-${classname}`}>{label}</label>
@@ -22,6 +22,7 @@ const Input = ({
                 placeholder={placeholder}           
                 onChange={onChange} 
                 ref={ref}
+                disabled = {disabled}
                 />
             {endAdornment ? endAdornment : null}
         </div>)

@@ -17,7 +17,9 @@ const Layout = () => {
 
     return (<>
         <Sidebar />
-        <div className="main-div"><Outlet /></div>
+        <div className="main-div">
+            <Outlet />
+        </div>
         
     </>)
 }

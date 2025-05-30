@@ -1,0 +1,56 @@
+
+.rows{    
+    height: 58px;
+    border-radius: 10px;
+    opacity: 1;
+    margin: 10px 10px 10px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    box-shadow: 0px 3px 6px #9D9D9D29;
+} 
+
+.rows li{
+    font: normal normal 16px/22px Nunito Sans;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;  
+    display: flex;
+    justify-content: left;  
+}
+
+
+.headings{
+     background: #EAF9FF; 
+     padding: auto;   
+}
+.headings li{
+    font: normal normal bold 16px/22px Nunito Sans;
+    width: 15%;
+    padding: 30px;
+}
+.employees {
+    background-color: white;
+}
+
+.employees li{
+    width: 14%;
+}
+
+
+
+.icons{
+    display: flex;
+    flex-direction: row;
+}
+
+.icons button {
+    background-color: white;
+    border-radius: 0%;
+}
+
+.icon{
+    margin-left: 5px;
+    height: 20px;
+}

@@ -55,18 +55,17 @@ const UncontrolledLogin = () => {
         <div className="login-content">
           <img className="logo" src="../../assets/kv-logo.png" alt="KV Logo" />
           <form onSubmit={handleNativeSubmit}>
-            <LoginInput
+            {/* <LoginInput
               id="login-username-input"
-              name="username"
               onChange={updateClearButton}
               label="Username"
               ref={usernameRef}
               endAdornment={<button className="clear" type="reset" disabled={true} ref={clearButtonRef}>Clear</button>}
-            />
+            /> */}
 
-            <LoginInput id="login-password-input" name="password" label="Password" />
+            {/* <LoginInput id="login-password-input" name="password" label="Password" />
 
-           <Button type="submit" className="login-button" > Log in </Button>
+           <Button type="submit" className="login-button" > Log in </Button> */}
           </form>
         </div>
       </div>
