@@ -15,10 +15,3 @@
     padding: 0px 5px;
     background-color: white;
 }
-
-
-
-/* Hide the placeholder visually */
-input::placeholder {
-  color: transparent;
-}

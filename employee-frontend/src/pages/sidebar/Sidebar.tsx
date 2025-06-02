@@ -20,7 +20,7 @@ const Sidebar = () => {
         
         <nav >
             <ul>
-                <li className="side-list nav-item">
+                <li className="side-list nav-item" onClick={()=>navigate('/employee')}>
                     <img alt="icon" src="../../assets/icon.svg" /> 
                     <b>Employee List </b>
                 </li>   

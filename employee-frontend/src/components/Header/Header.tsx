@@ -1,23 +1,31 @@
-import { useNavigate } from 'react-router-dom'
-import Icons from '../icons/Icons'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import './Header.css'
 import Select from '../select/Select'
 import type { selectOptions } from '../../types/interfaces'
+import { useState } from 'react'
 
 const Header = ({heading, filter, icon} : {
     heading : string, 
     filter : boolean, 
     icon? : "Edit" | "Create"}) => {
     const navigate = useNavigate()
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const filterOptions : selectOptions[] = [
         {value : "Active", text : "Active"},
         {value : "Inactive", text : "Inactive"},{value : "Probation", text : "Probation"}, {value : "All", text : "All"}]
 
+
+    const filterSelect = (e : any) => {
+        const newParams = searchParams
+        newParams.set("status", e.target.value)
+        setSearchParams(newParams)
+    }
+
+
     const urls  = 
-        {"Create" : "../../../assets/plus.png" ,
-         "Edit" : "../../../assets/circle.png" }
-    
+        {"Create" : "../../assets/plus.png" ,
+         "Edit" : "../../assets/pen.png" }
 
     const handleClick = (e : any, task : string) => {
         e.preventDefault()
@@ -33,7 +41,7 @@ const Header = ({heading, filter, icon} : {
                 {filter ? 
                  <div className='filter'>
                     <p>Filter By</p>
-                    <Select classname="filter-select" name="Filter" id="filter" label=""  options={filterOptions} />
+                    <Select classname="filter-select" name="Filter" id="filter" label=""  options={filterOptions} onClick={filterSelect}/>
                 </div>
                 :
                 <></>

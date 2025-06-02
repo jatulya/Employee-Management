@@ -22,10 +22,10 @@ const Login = () => {
     const [username, setUsername] = useState<string>("")
     const [password, setPassword] = useState<string>("")
     const [usernameError, setUsernameError] = useState<string>("")
+    const [showPassword, setShowPassword] = useState<boolean>(false)
 
     const usernameRef = useRef<HTMLInputElement>(null)
     const showPasswordRef = useRef<HTMLInputElement>(null)
-    const passwordRef = useRef<HTMLInputElement>(null)
     const navigate = useNavigate() //when using in handlers, use useNavigate
     //const updatePostion = useMousePostion()
 
@@ -34,7 +34,7 @@ const Login = () => {
             usernameRef.current.focus()
     },[])
 
-    function handleSubmit (event : React.ChangeEvent<HTMLInputElement>) {
+    function handleSubmit () {
         console.log("Username ", username)
         console.log("Password ", password)
         if (username !== "hello") { 
@@ -43,7 +43,7 @@ const Login = () => {
             setPassword("")
             return
         }
-        if (password !== "hellohowareyou") { 
+        if (password !== "hello") { 
             setUsernameError("Wrong password")
             setPassword("")
             setPassword("")
@@ -61,15 +61,11 @@ const Login = () => {
             }
     }, [username])
 
-    function isShowPassword(){
-        const token= localStorage.getItem("showPassword")
-        return token==="true"
-    }
     function updateShowPassword(){
-    if (showPasswordRef.current?.checked)
-        localStorage.setItem("showPassword","true")
-    else
-        localStorage.setItem("showPassword","false")
+        if (showPasswordRef.current?.checked){
+            setShowPassword(true)
+        }else(setShowPassword(false))
+
     }
 
     return(<div className="login-page">
@@ -96,24 +92,6 @@ const Login = () => {
                             Clear
                         </button>} 
                     />
-                {/* <LoginInput 
-                    id="username" 
-                    classname="login-input" 
-                    label="Username" 
-                    placeholder="Username" 
-                    type="text" 
-                    value={username} 
-                    onChange={(e)=> setUsername(e.target.value) } 
-                    ref={usernameRef} 
-                    endAdornment={
-                        <button 
-                            className="clear" 
-                            type="reset" 
-                            disabled={username.length===0} 
-                            onClick={()=>{setUsername("")}}>
-                            Clear
-                        </button>} 
-                    /> */}
             </div>       
             <p id="error">{usernameError? usernameError : ""}</p>
 
@@ -122,10 +100,9 @@ const Login = () => {
                     classname="login-input" 
                     label="password" 
                     placeholder="Password" 
-                    type={isShowPassword()? "text" : "password" }
+                    type={showPassword? "text" : "password" }
                     value={password} 
-                    onChange={(e:any)=> setPassword(e.target.value) } 
-                    ref={passwordRef}
+                    onChange={(e:any)=> setPassword(e.target.value) }
                     endAdornment={
                         <button 
                             className="clear" 

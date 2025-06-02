@@ -2,6 +2,8 @@ import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
 import { Layout } from "./components"
 import NotFound from "./components/notFound/NotFound"
 import {EmployeeDetails, EmployeeList, Login, CreateEmployee, Edit} from './pages'
+import { Provider } from "react-redux"
+import store from "./store/store"
 const App = () => {
 
   const router = createBrowserRouter([
@@ -28,8 +30,10 @@ const App = () => {
       ]
     }
   ])
-  return(<>
-    <RouterProvider router={router}/>
+  return(<> 
+    <Provider store={store}>
+      <RouterProvider router={router}/>
+    </Provider>
     </> )
 }
 

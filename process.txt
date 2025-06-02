@@ -199,3 +199,35 @@ DAY 9 --> 22/05/2025
    create type-safe mockups for the dependencies of employeeService and an instance of employeeService using beforeEach 
 
 
+Redux
+src/
+├── api-service/
+├── assets/
+├── components/
+├── hooks/
+├── pages/
+├── store/
+│   ├── department/
+│   │   └── departmentReducer.ts
+│   └── employee/
+│       ├── employee.types.ts
+│       ├── employeeActions.ts
+│       ├── employeeReducer.ts
+│   ├── rootReducer.ts
+│   └── store.ts
+
+
+1. add employee.types.ts (all the types to be used are defined in this.. by the trainer)
+2. create employeeReducer 
+    initial State is empty list of type EmployeeType and action is EmployeeAction
+    we call switch(action.type) and handle different cases 
+    for all cases (even default), the return should be of the same type as initalState or State
+3. create store using this reducer
+4. Add react-redux provider over the router provider. This is done so that all the children components get the redux (App has all components nested in it as children)
+5. we are creating a create action from redux. 
+    if there are previous values, initial values will be that.
+    the return element is {
+                ...state,
+                employees:[...state.employees, action.payload]
+            }
+6. In the form, on the form , we give the dispatch function. We pass the action type and payload to the dispatch. 
