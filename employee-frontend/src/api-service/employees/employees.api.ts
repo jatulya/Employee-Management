@@ -27,6 +27,15 @@ export const employeeApi =  employeeBaseApi.injectEndpoints({
             })
         }),
 
+        editEmployee : builder.mutation({
+            query : ({id, payload}) => ({
+                //in backend, the route is /employees with POST
+                url : `/employee/${id}`,
+                method : 'PUT',
+                body : payload
+            })
+        }),
+
         deleteEmployee : builder.mutation({
             query: (id) => ({
                 url : `/employee/${id}`,
@@ -41,5 +50,6 @@ export const {
     useDeleteEmployeeMutation, 
     useGetEmployeeDetailsQuery,
     useGetEmployeeListQuery, 
-    useCreateEmployeeMutation
+    useCreateEmployeeMutation,
+    useEditEmployeeMutation
 } = employeeApi

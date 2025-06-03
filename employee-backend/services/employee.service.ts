@@ -58,7 +58,18 @@ class EmployeeService {
         return this.employeeRepository.findByEmail(email)
     }
 
-    async updateEmployee(id: number, name:string, email:string, age:number, address :CreateAddressDto, role : EmployeeRole, department:number, experience : number, status : Status, password :string) : Promise<Employee>{
+    async updateEmployee(
+        id: number, 
+        name:string, 
+        email:string, 
+        age:number, 
+        address :CreateAddressDto, 
+        role : EmployeeRole, 
+        department:number, 
+        experience : number, 
+        status : Status, 
+        // password :string
+        ) : Promise<Employee>{
         try{
             const employeeExist = await this.employeeRepository.findOneById(id)
             if (!employeeExist){
@@ -83,7 +94,7 @@ class EmployeeService {
             employee.address = existingAddr
             employee.role = role
             employee.department = dept
-            employee.password = await bcrypt.hash(password, 10)
+            // employee.password = await bcrypt.hash(password, 10)
             employee.experience = experience,
             employee.status =  status
             await this.employeeRepository.update(id, employee)

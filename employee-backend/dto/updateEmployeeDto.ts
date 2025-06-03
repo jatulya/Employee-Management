@@ -18,10 +18,9 @@ export class UpdateEmployeeDto{
   @IsNumber()
   age: number;
 
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(5)
-  password : string;
+  // @IsString()
+  // @MinLength(5)
+  // password : string;
 
   @ValidateNested()
   @Type(()=> CreateAddressDto)

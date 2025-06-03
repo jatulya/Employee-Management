@@ -89,7 +89,6 @@ export default class EmployeeController {
                 updateEmployeeDto.department_id,
                 updateEmployeeDto.experience,                                
                 updateEmployeeDto.status,
-                updateEmployeeDto.password,
             );
             resp.status(200).send(newEmployee)
         }catch(error){

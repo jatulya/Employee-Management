@@ -40,7 +40,7 @@ const EmployeeDetails =  () => {
                     </div>
                     <div className="details">
                         <DetailName name="Joining Date" />
-                        <Text text={employee.dateOfJoining} />
+                        <Text text={employee.dateOfJoining.toString().slice()} />
                     </div>
                     <div className="details">
                         <DetailName name="Experience" />
@@ -56,7 +56,7 @@ const EmployeeDetails =  () => {
                     </div>
                     <div className="details">
                         <DetailName name="Address" />
-                        <Text text={`${employee.address.houseNo}, ${employee.address.line1},`} />
+                        <Text text={`${employee.address.house_no}, ${employee.address.line1},`} />
                         <Text text={`${employee.address.line2}, ${employee.address.pincode}`} />
                     </div>
                     <div className="details">
