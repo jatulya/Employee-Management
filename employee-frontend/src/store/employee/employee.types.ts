@@ -7,7 +7,7 @@
  */
 
 export interface Address {
-  houseNo: string;
+  house_no: string;
   line1: string;
   line2: string;
   pincode: string;
@@ -41,7 +41,7 @@ export interface Employee {
   dateOfJoining: string;
   experience: number;
   status: Status;
-  departmentId: number | string;
+  department_id: number;
 }
 
 export const EMPLOYEE_ACTION_TYPES = {

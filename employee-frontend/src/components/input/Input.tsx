@@ -13,7 +13,7 @@ const Input = ({
             ref, disabled} : LoginInputProps) => {
     return (
         <div>
-            <label className={`label-${classname}`}>{label}</label>
+            <label htmlFor = {id} className={`label-${classname}`}>{label}</label>
             <input 
                 id={id}
                 value={value}

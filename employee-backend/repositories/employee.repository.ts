@@ -17,7 +17,8 @@ class EmployeeRepository {
 
     async findOneById(id : number) : Promise<Employee> {
         return this.repository.findOne({where : {id}, relations : {
-            address : true
+            address : true,
+            department : true
         }})
     }
 

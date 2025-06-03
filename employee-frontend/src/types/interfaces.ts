@@ -1,29 +1,18 @@
-import type { MouseEventHandler } from "react"
+import type { ChangeEventHandler } from "react"
 
-export interface EmployeeFormData {
-  employeeName: string;
-  date: string;             
-  Experience: string;
-  Department: string;      
-  status: string;          
-  Role: string;            
-  HouseNo: string;
-  line1: string;
-  line2: string;
-  employeeID: string;
-}
 
 export interface selectProps {
     name : string,
     id : string,
     label : string,
     options : selectOptions[],
+    value : number | string,
     classname? : string,
-    onClick? : MouseEventHandler<HTMLSelectElement>
+    onChange? : ChangeEventHandler<HTMLSelectElement>
 }
 
 export interface selectOptions {
-    value : string,
+    value : string | number,
     text : string
 }
 

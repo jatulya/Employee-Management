@@ -4,22 +4,24 @@ import Actions from "./Action"
 import { useState } from "react"
 import DeleteModal from "../../Modal/Modal"
 import { useNavigate } from "react-router-dom"
-import { useSelector } from "react-redux"
-import { type Employee, type EmployeeState } from "../../../store/employee/employee.types"
+import { useGetEmployeeListQuery } from "../../../api-service/employees/employees.api"
 
 
 const EmployeeList = () => {
     const headings : string[] = ["Employee Name", "Employee ID", "Joining Date", "Role", "Status", "Experience", "Action"]
     
-    const employees : any = useSelector<EmployeeState>(state=> state.employees)
-    console.log(`Employee - `,employees)
+    // const employees : any = useAppSelector(state => state.employee.employees)
+    const {data} = useGetEmployeeListQuery({})
+    const employees = data
+    console.log("Data : ", data)
+    
     
     const navigate = useNavigate()
     const moveToEmployeeDetails = (id : string) => {
         navigate(`${id}`)
     }
 
-    const [showDelete, setShowDelete] = useState<boolean>(false)
+    // const [showDelete, setShowDelete] = useState<boolean>(false)
     
     return (<>
         <Header heading="Employee List" filter={true} icon="Create"/>
@@ -36,22 +38,21 @@ const EmployeeList = () => {
 
             { employees ? 
               employees.map((employee : any) => {
-                return(<ul className="rows employees"
-                onClick={() => { moveToEmployeeDetails(employee.employeeID) }}>
-                    <li><Text text={employee.employeeName}/></li>
-                    <li><Text text={employee.employeeID} /></li>
-                    <li><Text text={employee.date       } /></li>
-                    <li><Text text={employee.Role} /></li>
+                return(<><ul className="rows employees"
+                onClick={() => { moveToEmployeeDetails(employee.id) }}>
+                    <li><Text text={employee.name}/></li>
+                    <li><Text text={employee.employeeId} /></li>
+                    <li><Text text={employee.dateOfJoining} /></li>
+                    <li><Text text={employee.role} /></li>
                     <li><Text text={employee.status} /></li>
                     <li><Text text={employee.experience} /></li>
-                    <li><Actions setShowDelete={setShowDelete} id={employee.employeeId} /></li>
-                </ul>
+                    <li><Actions id={employee.id} /></li>
+                </ul>                              
+                </>
                 )
             }) : <></>}
 
-            {
-                showDelete ? <DeleteModal setShowDelete = {setShowDelete}/> : <></>
-            }
+            
         </div>
     </>)
 }

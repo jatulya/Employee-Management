@@ -1,4 +1,5 @@
 import express from "express";
+import cors from 'cors'
 import employeeRouter from "./routes/employee.router";
 import loggerMiddleware from "./middleware/logger.middleware";
 import datasource from "./db/data-source";
@@ -10,6 +11,7 @@ import departmentRouter from "./routes/department.router";
 
 const { Client } = require('pg');
 const server = express();
+server.use(cors())
 const logger = LoggerService.getInstance('server()')
 
 server.use(express.json());
@@ -20,6 +22,7 @@ server.use("/department", authMiddleware, departmentRouter)
 
 server.use(errorMiddleware) // we need this to happen after routers have been called
 //ie, the error from employeeRouter is then passed to this
+
 
 server.get("/", (req, res) => {
   console.log(req.url);

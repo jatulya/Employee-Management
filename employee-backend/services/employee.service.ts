@@ -6,14 +6,17 @@ import bcrypt from 'bcrypt'
 import { LoggerService } from "./logger.services";
 import Department from "../entities/department.entity";
 import HttpException from "../exceptions/httpException";
-import { departmentService } from "../routes/department.router";
+import DepartmentRepository from "../repositories/department.repository";
 
 class EmployeeService {
     private logger = LoggerService.getInstance('employee.services()')
-    constructor(private employeeRepository : EmployeeRepository){}
+   
+    constructor(private employeeRepository : EmployeeRepository, 
+        private departmentRepository : DepartmentRepository){ 
+         }
 
     async createEmployee(name:string, email:string, employeeId : string, age:number, address :CreateAddressDto, role : EmployeeRole, department : number, experience : number, dateOfJoining : Date, status : Status, password :string) : Promise<Employee>{
-            const dept = await departmentService.getDepartmentById(department)
+            const dept = await this.departmentRepository.findOneById(department)
 
             if (!dept){
                 throw new HttpException(409, "Invalid Department ID")
@@ -62,7 +65,7 @@ class EmployeeService {
                 throw new HttpException(409, "Invalid ID : The user with the given ID doesn't exist")
             }
 
-            const dept = await departmentService.getDepartmentById(department)
+            const dept = await this.departmentRepository.findOneById(department)
 
             if (!dept){
                 throw new HttpException(409, "Invalid Department ID")

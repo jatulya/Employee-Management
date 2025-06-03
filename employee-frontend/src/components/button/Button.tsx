@@ -1,7 +1,7 @@
 import './Button.css'
 
-const Buttons = (props : {value : string, type : "submit"| "reset" | "button", onChange :{(event: any) : void}}) => {
-    return <button className="buttons"  type={props.type} onClick={props.onChange}>{props.value}</button>
+const Buttons = (props : {value : string, type : "submit"| "reset" | "button", disabled: boolean, onChange :{(event: any) : void}}) => {
+    return <button className="buttons"  type={props.type} disabled={props.disabled} onClick={props.onChange}>{props.value}</button>
 }
 
 export default Buttons

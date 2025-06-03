@@ -7,7 +7,7 @@ import DepartmentController from "../controllers/department.controller";
 
 const departmentRouter = express.Router()
 
-const departmentRepository = new DepartmentRepository(datasource.getRepository(Department))
+export const departmentRepository = new DepartmentRepository(datasource.getRepository(Department))
 export const departmentService = new DepartmentService(departmentRepository)
 const departmentController = new DepartmentController(departmentService, departmentRouter)
 

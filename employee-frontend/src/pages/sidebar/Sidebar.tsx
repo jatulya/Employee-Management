@@ -7,7 +7,7 @@ const Sidebar = () => {
 
     function handleClick () {
 
-        localStorage.setItem("isLoggedIn", "false")
+        localStorage.removeItem("token")
         navigate('/')
     }
     return (<>

@@ -14,7 +14,7 @@ export default class DepartmentRepository {
     }
 
     async findOneById(id : number) : Promise<Department> {
-        return this.repository.findOne({where : {id}})
+        return this.repository.findOne({where : {id}, relations : { employee : true}})
     }
 
     async findDeptWithEmployees (id:number) : Promise<Department[]> {

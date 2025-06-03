@@ -6,12 +6,12 @@
     width: 90%;
 }
 
-.Active{
+.ACTIVE{
     background-color: #d3f4de;
 }
-.Inactive{
+.INACTIVE{
     background-color: #ffbfbf;
 }
-.Probation{
+.PROBATION{
     background-color: #f5ecb8;
 }

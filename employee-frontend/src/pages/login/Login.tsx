@@ -6,22 +6,15 @@ import './Login.css'
 import LoginLeft from "./LoginLeft"
 //import useMousePostion from "../../hooks/useMousePosition"
 import LoginInput from "./LoginInput"
-import { Navigate, useNavigate } from "react-router-dom"
+import {  useNavigate } from "react-router-dom"
+import { useLoginMutation } from "../../api-service/auth/login.api"
 
 const Login = () => {
-    const isLoggedIn = () => {
-        const token = localStorage.getItem("isLoggedIn");
-        console.log("token ", token)
-        return token === "true" 
-     }
-
-     if (isLoggedIn()){
-        return <Navigate to="/employee"/>
-     }
 
     const [username, setUsername] = useState<string>("")
     const [password, setPassword] = useState<string>("")
-    const [usernameError, setUsernameError] = useState<string>("")
+    const [login, {isLoading}] = useLoginMutation()
+    const [error, setError] = useState<string>("")
     const [showPassword, setShowPassword] = useState<boolean>(false)
 
     const usernameRef = useRef<HTMLInputElement>(null)
@@ -34,29 +27,24 @@ const Login = () => {
             usernameRef.current.focus()
     },[])
 
-    function handleSubmit () {
+    async function handleSubmit () {
         console.log("Username ", username)
         console.log("Password ", password)
-        if (username !== "hello") { 
-            setUsernameError("Wrong username")
-            setUsername("")
-            setPassword("")
-            return
-        }
-        if (password !== "hello") { 
-            setUsernameError("Wrong password")
-            setPassword("")
-            setPassword("")
-            return
-        }
-        console.log("Reached here")
-        localStorage.setItem("isLoggedIn", "true")
-        navigate('/employee')
+        login({email : username, password : password})
+        .unwrap()
+        .then((response) => {
+            localStorage.setItem("token", response.accessToken)
+            const token = localStorage.getItem("token")
+            console.log("Token : ", token)
+            navigate('/employee')
+        }).catch((error) => {
+            setError(error.data.message)
+        })        
     }
 
     useEffect(()=> {
         if (username.length >10){
-                setUsernameError("Value Of the username must be greater than 10 ")
+                setError("Username must be less than 20 characters ")
                 console.log("Greater than error occured")
             }
     }, [username])
@@ -93,7 +81,6 @@ const Login = () => {
                         </button>} 
                     />
             </div>       
-            <p id="error">{usernameError? usernameError : ""}</p>
 
             <LoginInput 
                     id="password" 
@@ -111,9 +98,12 @@ const Login = () => {
                             onClick={()=>{setPassword("")}}>
                             Clear
                         </button>} 
-                    />         
-            <Buttons value='Login' type="submit" onChange={handleSubmit}/>
+                    />       
+            <p id="error">{error? error : ""}</p>
+  
+            <Buttons value='Login' type="submit" onChange={handleSubmit} disabled={isLoading}/>
             <Input id="showPassword" label="Show Password" type="checkbox" placeholder="" onChange={updateShowPassword} ref={showPasswordRef} />
+
         </div>
         
     </div>)

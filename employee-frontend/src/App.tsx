@@ -11,10 +11,6 @@ const App = () => {
       path : "/", 
       element : <Login />
     },
-    // {
-    //   path : "/login",
-    //   element : <UncontrolledLogin />
-    // },
     {
       path : "not-found",
       element : <NotFound />

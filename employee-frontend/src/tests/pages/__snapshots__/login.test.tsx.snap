@@ -1,0 +1,105 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Login Page > should match snapshot 1`] = `
+<div>
+  <div
+    class="login-page"
+  >
+    <aside
+      class="sidediv"
+    >
+      <div
+        class="round"
+      >
+        <img
+          alt="kv-peeps"
+          src="../../../assets/kv-login.jpeg"
+        />
+      </div>
+    </aside>
+    <div
+      class="login-div"
+    >
+      <div>
+        <img
+          alt="kv-logo"
+          class="image"
+          src="../../assets/kv-logo.png"
+        />
+      </div>
+      <div
+        class="parent"
+      >
+        <div>
+          <label
+            class="label-login"
+            for="username"
+          >
+            Username
+          </label>
+          <input
+            class="input input--login"
+            id="username"
+            placeholder="Username"
+            type="text"
+            value=""
+          />
+          <button
+            class="clear"
+            disabled=""
+            type="reset"
+          >
+            Clear
+          </button>
+        </div>
+      </div>
+      <div
+        class="form-input"
+      >
+        <input
+          id="password"
+          placeholder=" "
+          required=""
+          type="password"
+          value=""
+        />
+        <label
+          for="password"
+        >
+          password
+        </label>
+        <button
+          class="clear"
+          disabled=""
+          type="reset"
+        >
+          Clear
+        </button>
+      </div>
+      <p
+        id="error"
+      />
+      <button
+        class="buttons"
+        type="submit"
+      >
+        Login
+      </button>
+      <div>
+        <label
+          class="label-undefined"
+          for="showPassword"
+        >
+          Show Password
+        </label>
+        <input
+          class="input input--undefined"
+          id="showPassword"
+          placeholder=""
+          type="checkbox"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
