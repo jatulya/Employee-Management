@@ -4,7 +4,7 @@ const employeeBaseApi = createApi({
     //all the cached states would be stored in this path
     reducerPath : "employeeApi",
     baseQuery : fetchBaseQuery({
-        baseUrl: "http://localhost:3000", // same as server
+        baseUrl: "http://localhost:3001", // same as server
         prepareHeaders: (headers) => {
            const token = localStorage.getItem("token") 
            

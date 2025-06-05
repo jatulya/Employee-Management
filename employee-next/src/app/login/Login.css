@@ -10,7 +10,7 @@ html{
 .sidediv{
     height: 100%;
     left: 0%;
-    width: 1300px;
+    width: 800px;
     border: rgb(186, 215, 248) solid ;
     background-color: #c5eefd;
     margin: 0%;
@@ -45,8 +45,6 @@ html{
 .parent{
     position: relative;
 }
-
-
 .clear{
     position: absolute;
     height: 48px;

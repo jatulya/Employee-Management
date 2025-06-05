@@ -4,7 +4,6 @@ import LogoImage from "../../components/image/LogoImage"
 import Input from "../../components/input/Input"
 import './Login.css'
 import LoginLeft from "./LoginLeft"
-//import useMousePostion from "../../hooks/useMousePosition"
 import LoginInput from "./LoginInput"
 import {  useNavigate } from "react-router-dom"
 import { useLoginMutation } from "../../api-service/auth/login.api"
@@ -64,7 +63,7 @@ const Login = () => {
             <LogoImage />
             <div className="parent">
                 <Input id="username" 
-                    classname="login" 
+                    variant="login" 
                     label="Username" 
                     placeholder="Username" 
                     type="text" 
@@ -80,16 +79,15 @@ const Login = () => {
                             Clear
                         </button>} 
                     />
-            </div>       
 
-            <LoginInput 
+                <Input 
                     id="password" 
-                    classname="login-input" 
-                    label="password" 
-                    placeholder="Password" 
-                    type={showPassword? "text" : "password" }
+                    variant="login" 
+                    label="Password" 
+                    placeholder="password" 
+                    type={showPassword ? "text" : "password"} 
                     value={password} 
-                    onChange={(e:any)=> setPassword(e.target.value) }
+                    onChange={(e)=> setPassword(e.target.value) } 
                     endAdornment={
                         <button 
                             className="clear" 
@@ -97,20 +95,34 @@ const Login = () => {
                             disabled={password.length===0} 
                             onClick={()=>{setPassword("")}}>
                             Clear
-                        </button>} 
-                    />       
+                        </button>
+                        } 
+                />
+            </div>         
+                 
             <p id="error">{error? error : ""}</p>
-  
-            <Buttons value='Login' type="submit" onChange={handleSubmit} disabled={isLoading}/>
-            <Input id="showPassword" label="Show Password" type="checkbox" placeholder="" onChange={updateShowPassword} ref={showPasswordRef} />
 
-        </div>
-        
+            <Input 
+                id="showPassword" 
+                label="Show Password" 
+                type="checkbox" 
+                placeholder="" 
+                onChange={updateShowPassword} 
+                ref={showPasswordRef} 
+            />
+
+            <Buttons 
+                value='Login' 
+                type="submit" 
+                varient="primary"
+                onChange={handleSubmit} 
+                disabled={isLoading}
+            />           
+        </div>       
     </div>)
 
 }
 
 export default Login
 
-// <Input id="username" classname="login-input" label="Username" placeholder="Username" type="text" value={username} onChange={(e)=> handleClick(e)} ref={usernameRef} />
-            //    <Input id="password" classname="login-input" label="Password" placeholder="Password" type="password" value={username} onChange={(e)=> handleClick(e)}/>
+

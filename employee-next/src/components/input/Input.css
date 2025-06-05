@@ -1,0 +1,33 @@
+/* .input{
+    border-radius: 5px;
+    padding: 15px;
+}*/
+
+
+/* .label-login{
+    position :absolute;
+    transform: translateY(-50%);
+    left : 16px;
+    padding: 0px 5px;
+    background-color: white;
+} */
+
+.input-element{
+    height: 40px;
+    
+    margin-top: 10px;
+}
+
+.label-login{
+    color: rgba(30, 180, 240, 1);
+}
+
+.input-div-login{
+    margin-top: 10px;
+}
+
+
+.varient-login{
+    width: 100%;
+    position: relative;
+}

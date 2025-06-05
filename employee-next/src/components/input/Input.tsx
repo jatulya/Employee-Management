@@ -1,4 +1,4 @@
-import type { LoginInputProps } from '../../types/interfaces'
+
 import './Input.css'
 
 const Input = ({
@@ -8,21 +8,27 @@ const Input = ({
             classname,
             value,
             onChange,
-            variant,
             placeholder,
             endAdornment = null,
-            ref, disabled} : LoginInputProps) => {
+            ref, disabled} : {
+    id : string,
+    label : string,
+    type : string,
+    value? : string,
+    placeholder : string,
+    classname? : string,
+    onChange? : (event : React.ChangeEvent<HTMLInputElement>) => void ,
+    endAdornment? : React.ReactNode | null, 
+    ref? : React.RefObject<HTMLInputElement | null>,
+    disabled? : boolean
+}) => {
     return (
-        <div className={`input-div-${variant}`}>
-            { 
-                label !== "" ? 
-                    <label htmlFor = {id} className={`label-${variant}`}>{label}</label>
-                : <></>
-            }
+        <div className={`input-div-${classname}`}>
+            <label htmlFor = {id} className={`label-${classname}`}>{label}</label>
             <input 
                 id={id}
                 value={value}
-                className={`input input-${variant}`} 
+                className={`input-element varient-${classname}`} 
                 type={type} 
                 placeholder={placeholder}           
                 onChange={onChange} 

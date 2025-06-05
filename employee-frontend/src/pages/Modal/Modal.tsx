@@ -33,12 +33,18 @@ const DeleteModal = ({setShowDelete, id} : {
     return (
         <div className="modal">
             <div className="modal-div">
-                <span className="close" onClick={()=>setShowDelete(false)}>&times;</span>
+                <span className="close" onClick={cancelClick}>&times;</span>
                 <div className="modal-content">
                     <h3 className="center">Are You Sure?</h3>
                     <h4 className="sentence">Do you really want to delete employee?</h4>
                     <div className="buttons">
-                        <Buttons value="Confirm" type="button" onChange={deleteClick} disabled={false} />
+                        <Buttons 
+                            varient="primary"
+                            value="Confirm" 
+                            type="button" 
+                            onChange={deleteClick} 
+                            disabled={false} 
+                            />
                         <Buttons value="Cancel" type="button" onChange={cancelClick} disabled={false}/>
                     </div>
                 </div>

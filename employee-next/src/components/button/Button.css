@@ -1,4 +1,5 @@
 .customButtons{
+    width: 80%;
     margin-top: 50px;
     font-size: medium;
     padding: 10px;
@@ -8,13 +9,38 @@
     cursor: pointer;
 }
 
+/* .button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease-in-out;
+}
+
+
+
+.button--primary:hover {
+  background-color: #0056b3;
+}
+
+.button--secondary {
+  background-color: #f8f9fa;
+  color: #212529;
+  border: 1px solid #dee2e6;
+}
+
+.button--secondary:hover {
+  background-color: #e2e6ea;
+  border-color: #dae0e5;
+}  */
 .button--primary {
   background-color: #03AEEE;
   color: white;
 }
 
 .button--secondary {
-  width: 50%;
   background-color: #f8f9fa;
   color: #212529;
   border: 1px solid #dee2e6;

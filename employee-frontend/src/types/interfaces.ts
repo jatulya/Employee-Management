@@ -23,6 +23,7 @@ export interface LoginInputProps {
     value? : string,
     placeholder : string,
     classname? : string,
+    variant? : string,
     onChange? : (event : React.ChangeEvent<HTMLInputElement>) => void ,
     endAdornment? : React.ReactNode | null, 
     ref? : React.RefObject<HTMLInputElement | null>,

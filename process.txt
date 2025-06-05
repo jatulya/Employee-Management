@@ -357,3 +357,19 @@ Should focus username input on mount
 
 Test 7
 Should clear error when username length is valid
+
+NEXT js
+1. npx create-next-app@latest
+2. npm run dev
+3. each file path is a url path. Every folder should have a file named page.tsx so that when that url is accessed, the contents of the page.tsx is rendered.
+4. app/page.tsx --> main file, the one that renders when the page is loaded. this is not nested
+5. app/layout.tsx --> it renders components in every page coming
+    suppose we put app/dashboard/layout.tsx -> then components under the body of the layout.tsx file will be rendered in all the paths under dashboard. We can group in and group out of the layout file using route groups of next 
+6. Dynamic routing is done by giving the folder name as [parameter_name]
+    in the pages where dynamic routing is required, we pass a prop named params. we can use the parameters by destructuring the params 
+    NOTE : the name passed should be params itself. 
+           the type should be defined for params, not the prop
+    eg. 
+        const Details = ({params} : {params : {id : string}}) => {
+        const {id} = params 
+        //rest of the login }

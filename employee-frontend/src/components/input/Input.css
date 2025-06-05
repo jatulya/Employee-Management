@@ -1,17 +1,34 @@
-.input{
-    border-radius: 5px;
-    padding: 15px;
-}
-.input--login{
-    
-}
-/* .boxes{
-    width : 33.33%
+
+
+/* .input-element{
+    height: 40px; 
+    margin-top: 10px;
 } */
+
+
+
+.input-div-login{
+    margin-top: 10px;
+}
+
 .label-login{
-    position :absolute;
-    transform: translateY(-50%);
-    left : 16px;
-    padding: 0px 5px;
-    background-color: white;
+    color: rgba(30, 180, 240, 1);
+}
+.input-login{
+    width: 100%;
+    position: relative;
+}
+
+input[type='checkbox']{
+    width: min-content;
+    margin: 10px;
+}
+
+.input-div-employee-form{
+    width: 33.33%;
+    margin : 0px 30px 10px 2px;
+}
+
+.input-employee-form{
+    margin-top: 5px;
 }

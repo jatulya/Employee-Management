@@ -6,6 +6,8 @@ import { EMPLOYEE_ACTION_TYPES, type Employee } from "../../../../store/employee
 import { useAppDispatch } from "../../../../store/store"
 import { addEmployee } from "../../../../store/employee/employeeReducer"
 import { useCreateEmployeeMutation, useEditEmployeeMutation, useGetEmployeeDetailsQuery } from "../../../../api-service/employees/employees.api"
+import { useGetDepartmentListQuery } from "../../../../api-service/employees/department.api"
+import './Form.css'
 
 const Form = ({ task }: { task: "Create" | "Edit" }) => {
 
@@ -19,10 +21,11 @@ const Form = ({ task }: { task: "Create" | "Edit" }) => {
 
     const { id } = useParams()
     const { data } = useGetEmployeeDetailsQuery(id)
-
+    const {data : departments} = useGetDepartmentListQuery({})
+ 
     const [createEmployee, { isLoading }] = useCreateEmployeeMutation()
     const [editEmployee, { isLoading: isEditLoading }] = useEditEmployeeMutation()
-
+    console.log(departments)
     const navigate = useNavigate()
 
     const [values, setValues] = useState<Employee>({
@@ -43,6 +46,7 @@ const Form = ({ task }: { task: "Create" | "Edit" }) => {
             pincode: ""
         }
     })
+
     useEffect(() => {
         if (id && task === "Edit" && data) {
             console.log("Employee : ", data)
@@ -136,12 +140,11 @@ const Form = ({ task }: { task: "Create" | "Edit" }) => {
         { value: "UX", text: "UX" }
     ]
 
-    const selectDept: selectOptions[] = [
-        { value: 1, text: "Marketing" },
-        { value: 2, text: "Software" },
-        { value: 3, text: "Finance" },
-        { value: 4, text: "Design" }
-    ]
+    const deptOptions: selectOptions[] = departments ? departments.map((department : any) => {
+        return ({
+            value : department.id,
+            text : department.name})
+        }) : [];    
 
     return (<>
         <Header heading={`${task} Employee`} filter={false} />
@@ -150,6 +153,7 @@ const Form = ({ task }: { task: "Create" | "Edit" }) => {
                 <Input
                     id='employeeName'
                     value={values.name}
+                    variant="employee-form"
                     type='text'
                     placeholder='Employee name'
                     label='Employee name'
@@ -158,6 +162,7 @@ const Form = ({ task }: { task: "Create" | "Edit" }) => {
 
                 <Input
                     id='date'
+                    variant="employee-form"
                     type='date'
                     placeholder='Joining date'
                     label='Joining date'
@@ -166,6 +171,7 @@ const Form = ({ task }: { task: "Create" | "Edit" }) => {
 
                 <Input
                     id="Experience"
+                    variant="employee-form"
                     placeholder='Experience'
                     type='number'
                     label="Experience"
@@ -177,6 +183,7 @@ const Form = ({ task }: { task: "Create" | "Edit" }) => {
             <section className="row">
                 <Input
                     id='age'
+                    variant="employee-form"
                     value={values.age.toString()}
                     type='number'
                     placeholder='Employee Age'
@@ -186,6 +193,7 @@ const Form = ({ task }: { task: "Create" | "Edit" }) => {
 
                 <Input
                     id='email'
+                    variant="employee-form"
                     type='text'
                     placeholder='Email'
                     label='Email'
@@ -194,6 +202,7 @@ const Form = ({ task }: { task: "Create" | "Edit" }) => {
 
                 <Input
                     id="password"
+                    variant="employee-form"
                     placeholder='Password'
                     type='password'
                     label="Password"
@@ -207,7 +216,7 @@ const Form = ({ task }: { task: "Create" | "Edit" }) => {
                     label='Department'
                     name="Department"
                     id="department"
-                    options={selectDept}
+                    options={deptOptions}
                     value={values.department_id}
                     classname="boxes"
                     onChange={(e) => updateField("department_id", e)} />
@@ -231,65 +240,78 @@ const Form = ({ task }: { task: "Create" | "Edit" }) => {
             </section>
 
             <section className="row" >
-                <section className="address">
+                {/* <section className="address"> */}
                     <Input
                         id="House_no"
+                        variant="employee-form"
                         placeholder='House No.'
                         type='text'
-                        label="Address"
-                        classname="boxes"
+                        label="Address"                        
                         value={values.address.house_no}
                         onChange={(e) => updateAddressField("house_no", e)}
                     />
 
                     <Input
-                        id="line1"
-                        placeholder='Line 1'
+                        id="pincode"
+                        variant="employee-form"
+                        placeholder='Pincode'
                         type='text'
-                        label=""
+                        label="Pincode"
                         classname="boxes"
-                        value={values.address.line1}
-                        onChange={(e) => updateAddressField("line1", e)}
-
+                        value={values.address.pincode}
+                        onChange={(e) => updateAddressField("pincode", e)}
                     />
 
                     <Input
-                        id="line2"
-                        placeholder='Line 2'
+                        id='Employee-id'
+                        variant="employee-form"
                         type='text'
-                        label=""
-                        classname="boxes"
-                        value={values.address.line2}
-                        onChange={(e) => updateAddressField("line2", e)}
-                    />
-                </section>
-
-                <Input
-                    id="pincode"
-                    placeholder='Pincode'
-                    type='text'
-                    label="Pincode"
-                    classname="boxes"
-                    value={values.address.pincode}
-                    onChange={(e) => updateAddressField("pincode", e)}
-                />
-
-                <Input
-                    id='Employee-id'
-                    type='text'
-                    placeholder='Employee ID'
-                    label='Employee ID'
-                    disabled={task === "Edit" ? true : false}
-                    value={values.employeeId}
-                    onChange={(e) => updateField("employeeId", e)}
+                        placeholder='Employee ID'
+                        label='Employee ID'
+                        disabled={task === "Edit" ? true : false}
+                        value={values.employeeId}
+                        onChange={(e) => updateField("employeeId", e)}
                 />
             </section>
 
+            <section className="row" >
+                    <Input
+                        id="line1"
+                        variant="employee-form"
+                        placeholder='Line 1'
+                        type='text'
+                        label=""                    
+                        value={values.address.line1}
+                        onChange={(e) => updateAddressField("line1", e)}
+                    />
+            </section>
 
-            <section className="button">
-                <Buttons value={task === "Edit" ? "Save" : "Create"} disabled={false}
-                    type='submit' onChange={() => { }} />
-                <Buttons value='Cancel' type='reset' onChange={() => { }} disabled={false} />
+            <section className="row" >
+                    <Input
+                        id="line2"
+                        variant="employee-form"
+                        placeholder='Line 2'
+                        type='text'
+                        label=""
+                        value={values.address.line2}
+                        onChange={(e) => updateAddressField("line2", e)}
+                    />
+            </section>
+
+            <section className="employee-form-buttons">
+                <Buttons 
+                    value={task === "Edit" ? "Save" : "Create"} 
+                    disabled={false}
+                    type='submit' 
+                    onChange={() => { }} 
+                    varient="primary"/>
+
+                <Buttons 
+                    value='Cancel' 
+                    type='reset' 
+                    varient="secondary"
+                    onChange={() => {navigate('/employee')}} 
+                    disabled={false} />
             </section>
 
         </form>
@@ -298,6 +320,3 @@ const Form = ({ task }: { task: "Create" | "Edit" }) => {
 
 export default Form
 
-/* 
-[{"target":{"name":"Vanditha","age":30,"email":"vandhitha@gmail.com","password":"vandhuthitha","employeeId":"emp45","dateOfJoining":"2025-06-05","department_id":3,"role":"HR","status":"INACTIVE","experience":1,"address":{"line1":"hi ","line2":"smart city","houseNo":"vandhu home","pincode":"686859"}},"value":{"line1":"hi ","line2":"smart city","houseNo":"vandhu home","pincode":"686859"},"property":"address","children":[{"target":{"line1":"hi ","line2":"smart city","houseNo":"vandhu home","pincode":"686859"},"property":"house_no","children":[],"constraints":{"isString":"house_no must be a string","isNotEmpty":"house_no should not be empty"}}]}]
-*/

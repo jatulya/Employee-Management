@@ -1,11 +1,12 @@
 import type { selectProps } from '../../types/interfaces'
-import '../input/Input.css'
+import './Select.css'
 
 const Select = (props : selectProps) => {
-    return (<div className={props.classname}>
-        <label className='label'>{props.label}</label>
+    return (
+    <div className="select-login-div">
+        <label>{props.label}</label>
         <select 
-            className='input' 
+            className='select-login' 
             name={props.name} 
             id={props.name} 
             onChange={props.onChange}

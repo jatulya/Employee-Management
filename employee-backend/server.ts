@@ -34,7 +34,7 @@ server.get("/", (req, res) => {
   try{
       await datasource.initialize()
       logger.info('connected')
-      server.listen(3000, () => {
+      server.listen(3001, () => {
         logger.info("server listening to 3000");
       });
   }catch {
