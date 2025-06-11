@@ -40,7 +40,7 @@ const EmployeeDetails =  () => {
                     </div>
                     <div className="details">
                         <DetailName name="Joining Date" />
-                        <Text text={employee.dateOfJoining.toString().slice()} />
+                        <Text text={employee.dateOfJoining.slice(0,10)} />
                     </div>
                     <div className="details">
                         <DetailName name="Experience" />

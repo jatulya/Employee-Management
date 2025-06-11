@@ -99,7 +99,7 @@ const Form = ({ task }: { task: "Create" | "Edit" }) => {
         const experience = values.experience
         const payload = {
             ...values,
-            age: Number(age),
+            age: +age,
             department_id: Number(deptId),
             experience: Number(experience)
         }
@@ -217,16 +217,16 @@ const Form = ({ task }: { task: "Create" | "Edit" }) => {
                     name="Department"
                     id="department"
                     options={deptOptions}
-                    value={values.department_id}
-                    classname="boxes"
+                    value={values.department_id}                    
+                    variant='login'
                     onChange={(e) => updateField("department_id", e)} />
 
                 <Select
                     label='Status'
                     name="status"
                     id="status"
+                    variant='login'
                     options={selectStatus}
-                    classname="boxes"
                     value={values.status}
                     onChange={(e) => updateField("status", e)} />
 
@@ -234,9 +234,11 @@ const Form = ({ task }: { task: "Create" | "Edit" }) => {
                     label='Role'
                     name="Role"
                     id="Role"
+                    variant='login'
                     options={selectRoles}
                     value={values.role}
-                    onChange={(e) => updateField("role", e)} classname="boxes" />
+                    onChange={(e) => updateField("role", e)} 
+                    />
             </section>
 
             <section className="row" >

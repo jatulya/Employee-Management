@@ -43,7 +43,7 @@ const Login = () => {
 
     useEffect(()=> {
         if (username.length >10){
-                setError("Username must be less than 20 characters ")
+                setError("Username must be less than 30 characters ")
                 console.log("Greater than error occured")
             }
     }, [username])

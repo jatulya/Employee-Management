@@ -1,39 +1,53 @@
 import {  Header, Text } from "../../../components"
 import './EmployeeList.css'
 import Actions from "./Action"
-import { useState } from "react"
-import DeleteModal from "../../Modal/Modal"
-import { useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import { useGetEmployeeListQuery } from "../../../api-service/employees/employees.api"
+import type { Employee } from "../../../store/employee/employee.types"
 
 
 const EmployeeList = () => {
-    const headings : string[] = ["Employee Name", "Employee ID", "Joining Date", "Role", "Status", "Experience", "Action"]
+    const headings : string[] = ["Employee Name", "Employee ID", "Joining Date", "Role", "Status", "Experience"]
     
-    // const employees : any = useAppSelector(state => state.employee.employees)
-    const {data} = useGetEmployeeListQuery({})
-    const employees = data
-    console.log("Data : ", data)
-    
+    const [searchParams, setSearchParams] = useSearchParams();
+    const[status, setStatus] = useState<string>("All")
+    const { data } = useGetEmployeeListQuery({})  
+    const allEmployees = data || []
+
+    useEffect(() => {
+        const newStatus = searchParams.get("status");
+        setStatus(newStatus ? newStatus : "All");
+    }, [searchParams]);
+
+    const employees = status !== 'All' ?
+             allEmployees.filter((employee : Employee) => employee.status === status)
+              :  allEmployees   
     
     const navigate = useNavigate()
     const moveToEmployeeDetails = (id : string) => {
         navigate(`${id}`)
     }
-
-    // const [showDelete, setShowDelete] = useState<boolean>(false)
     
+    const accessToken = localStorage.getItem('token')
+    const user = accessToken? JSON.parse(atob(accessToken.split(".")[1])) : {};
+    console.log(user)
+
     return (<>
         <Header heading="Employee List" filter={true} icon="Create"/>
         <div >
             <ul className="rows headings">
                 {headings.map((item, key) => {
-                    return( 
-                        <li >
-                            {item}
-                        </li>
+                    return( <>
+                        <li > {item} </li>
+                    </>  
                     )
                 })}
+                {
+                    user.role === 'HR' ? 
+                    <li>Actions</li> :
+                    <></>
+                }
             </ul>
 
             { employees ? 
@@ -42,11 +56,16 @@ const EmployeeList = () => {
                 onClick={() => { moveToEmployeeDetails(employee.id) }}>
                     <li><Text text={employee.name}/></li>
                     <li><Text text={employee.employeeId} /></li>
-                    <li><Text text={employee.dateOfJoining} /></li>
+                    <li><Text text={employee.dateOfJoining.slice(0,10)} /></li>
                     <li><Text text={employee.role} /></li>
                     <li><Text text={employee.status} /></li>
                     <li><Text text={employee.experience} /></li>
-                    <li><Actions id={employee.id} /></li>
+                    {
+                       user.role === 'HR'? 
+                        <li><Actions id={employee.id} /></li> :
+                        <></>
+                    }
+                    
                 </ul>                              
                 </>
                 )

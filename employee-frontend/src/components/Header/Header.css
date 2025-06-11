@@ -20,26 +20,9 @@
   align-items: center;
 }
 
-.filter{
-  display: flex;
-  flex-direction: row; 
-  align-items: center; 
-  justify-content: space-between;
-  height: 25px;
-}
 
-.filter Select{
-  padding-top: 10px;
-  margin-left: 10px;
-  width: 100%;
-  background-color: #EAF9FF;
-  border-radius: 50px ;
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  border-color: #EAF9FF;
-  font-size: medium;
-}
+
+
 
 .icon-button{
   display: flex;

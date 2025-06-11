@@ -6,8 +6,8 @@ export interface selectProps {
     id : string,
     label : string,
     options : selectOptions[],
-    value : number | string,
-    classname? : string,
+    value : number | string ,
+    variant? : string,
     onChange? : ChangeEventHandler<HTMLSelectElement>
 }
 
