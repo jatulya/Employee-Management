@@ -361,6 +361,8 @@ Should clear error when username length is valid
 NEXT js
 1. npx create-next-app@latest
 2. npm run dev
+
+any changes for rebasing??
 3. each file path is a url path. Every folder should have a file named page.tsx so that when that url is accessed, the contents of the page.tsx is rendered.
 4. app/page.tsx --> main file, the one that renders when the page is loaded. this is not nested
 5. app/layout.tsx --> it renders components in every page coming
