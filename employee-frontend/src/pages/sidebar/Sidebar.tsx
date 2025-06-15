@@ -35,7 +35,7 @@ const Sidebar = () => {
                 </li>  
                 <li className="side-list nav-item" onClick={()=>navigate(`/employee/${userId.id}/library`)}>
                     <img alt="icon" src="../../assets/icon.svg" />  
-                    <b>Library Management</b>           
+                    <b>Library</b>           
                 </li> 
                 <li className="side-list nav-item" onClick={handleClick}>
                     <img alt="icon" src="../../assets/icon.svg" />  

@@ -2,13 +2,17 @@ import { type NewButtonProps } from "../../types/props";
 import './Button.css'
 
 function NewButton ({children, variant, type} : NewButtonProps) {
-    // primary - all buttons
-    //secondary - green buttons
-    const buttonClass = variant === 'primary' ?
+
+    const buttonColor = variant.color === 'primary' ?
            'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 ' :
-           'bg-green-500'   
+           variant.color === 'secondary' ? 'bg-green-600' : 'bg-gray-200'
+    
+    const buttonSize = variant.size === 'lg' ? 
+            'w-96' : variant.size == 'md' ? 
+            'w-48' : 'w-32'
+
     return (
-        <div className={`text-white rounded-lg px-4 py-2 flex w-32 h-10 items-center justify-center font-bold ${buttonClass}`}>
+        <div className={`text-white rounded-lg px-4 py-2 flex h-13 items-center justify-center font-bold ${buttonColor} ${buttonSize}`}>
             <button 
                 type={type}             
             >

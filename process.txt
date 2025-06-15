@@ -373,3 +373,5 @@ NEXT js
         const Details = ({params} : {params : {id : string}}) => {
         const {id} = params 
         //rest of the login }
+
+    {hola hola gola}

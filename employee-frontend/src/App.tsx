@@ -6,7 +6,7 @@ import NotFound from "./components/notFound/NotFound"
 import {EmployeeDetails, EmployeeList, Login, CreateEmployee, Edit} from './pages'
 import { Provider } from "react-redux"
 import store from "./store/store"
-import BookCatalog from "./pages/library-mgmt/bookCatalog/BookCatalog"
+import BookCatalog from "./pages/bookCatalog/bookCatalog/BookCatalog"
 
 const App = () => {
 
